@@ -4,7 +4,6 @@ import sqlite3
 app = Flask(__name__)
 
 class Database:
-
     dbname = "utenti_db"
 
     @classmethod
@@ -13,51 +12,40 @@ class Database:
 
     @classmethod
     def addRecord(cls, nome, litri):
-
         conn = cls.connection()
         cur = conn.cursor()
 
-        cur.execute("""INSERT INTO record(nome, litri) VALUES (?, ?)""", (nome, litri))
-        conn.commit()
+        try:
+            cur.execute("INSERT INTO records(nome, litri) VALUES (?, ?)", (nome, litri))
+            conn.commit()
+        except sqlite3.IntegrityError as e:
+            print("Errore di integrità:", e)
+        finally:
+            conn.close()  
 
-        return 
-    
-
-
-@app.route("/")
-def index():
+@app.route("/", methods=["GET", "POST"])
+def homepage():
     conn = Database.connection()
     cur = conn.cursor()
 
-    results = cur.execute("""SELECT nome FROM users""")
-    nomi = [row[0] for row in cur.fetchall()]
-
-    start = 2025
-    actual = cur.execute("""Select sum(litri) from record""").fetchone()[0]
-    totale = start - actual
-
-    return render_template("homepage.html", nomi=nomi, totale=totale)
-   
-    
-@app.route("/")
-def record():
-    conn = Database.connection()
     
     if request.method == "POST":
-        nome = request.form['nome']
-        litri = request.form['litri']
-
+        nome = request.form['user']
+        litri = request.form['quantity']
         Database.addRecord(nome, litri)
 
-    return render_template("homepage.html")
-
-
-
-
-
-
-if __name__ == "__main__":
-
-    app.run(debug=True)
+    
+    cur.execute("SELECT nome FROM users")
+    nomi = [row[0] for row in cur.fetchall()]
 
     
+    start = 2025
+    actual = cur.execute("SELECT COALESCE(SUM(litri), 0) FROM records").fetchone()[0]
+    totale = start - actual
+
+    conn.close()  
+
+    return render_template("homepage.html", nomi=nomi, totale=totale)
+
+if __name__ == "__main__":
+    app.run(debug=True)

@@ -6,18 +6,19 @@
     <title>HomePage</title>
 </head>
 <body>
-
-    <label for="nome">Select your name:</label>
-    <select name="nome" id="nome">
-        {% for nome in nomi %}
-        <option value="{{ id }}">{{ nome }}</option>
-        {% endfor %}
-    </select>
+    <label for="amount">Remaining:</label>
+    <p>{{ totale }}</p>
 
 
     <form method="post">
-        <label>Insert the liters</label>
-        <input type="number" id="quantity"><br>
+        <label for="user">Pick yout name:</label>
+        <select name="user" id="user">
+            {% for nome in nomi %}
+            <option value="{{ nome  }}">{{ nome }}</option>
+            {% endfor %}
+        </select>
+        <label>Inserisci i litri</label>
+        <input type="number" id="quantity">
         <button type="reset">Cancel</button>
         <button type="submit">Submit</button>
     </form>

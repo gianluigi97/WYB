@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 
 app = Flask(__name__)
@@ -33,6 +33,8 @@ def homepage():
         nome = request.form['user']
         litri = request.form['quantity']
         Database.addRecord(nome, litri)
+        conn.close()  
+        return redirect(url_for("homepage")) # EVITA CHE LA RICHIESTA POST SI RIPETI OGNI VOLTA CHE SI RICARICA LA PAGINA
 
     
     cur.execute("SELECT nome FROM users")

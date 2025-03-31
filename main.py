@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -49,5 +50,25 @@ def homepage():
 
     return render_template("homepage.html", nomi=nomi, totale=totale)
 
+@app.route("/classifica", methods=["GET"])
+def show_rankings():
+    conn = Database.connection()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM ranking ORDER BY totale DESC")
+
+    ranking = pd.DataFrame(data=cur.fetchall())
+    ranking.columns = ['nome', 'totale']
+    nome = ranking['nome']
+    totale = ranking['totale']
+
+    conn.close()
+
+    dati_accoppiati = zip(nome, totale)
+
+    return render_template('ranking.html', nomi=nome, totale=dati_accoppiati)
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
+

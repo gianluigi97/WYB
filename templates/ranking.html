@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classifica</title>
+</head>
+<body>
+    <div class="main">
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>Totale</th>
+            </tr>
+            <tr>
+                {% for nome, tot in totale %}
+                    <tr>
+                        <td>{{ nome }}</td>
+                        <td>{{ tot }}</td>
+                    </tr>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

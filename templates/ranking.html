@@ -4,23 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classifica</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Jost', sans-serif;
+            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+        }
+        
+        #main {
+            width: 50%; 
+        }
+
+        #records {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            color: white;
+        }
+
+        #records td, #records th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        #records tr:first-child(){background-color: #7c7a97; color: red}
+
+        #records tr:nth-child(even){background-color: #7c7a97; color: black}
+
+        #records tr:hover {background-color: #e4ec7d; color: black;}
+
+        #records th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #24243e;
+            color: white;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            width: 40%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #fff;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #dfee13;
+        }
+    </style>
 </head>
 <body>
-    <div class="main">
-        <table>
+    <div id="main">
+        <table id="records">
             <tr>
                 <th>Nome</th>
                 <th>Totale</th>
             </tr>
-            <tr>
-                {% for nome, tot in totale %}
-                    <tr>
-                        <td>{{ nome }}</td>
-                        <td>{{ tot }}</td>
-                    </tr>
-                {% endfor %}
-            </tr>
+            {% for nome, tot in totale %}
+                <tr>
+                    <td>{{ nome }}</td>
+                    <td>{{ tot }}</td>
+                </tr>
+            {% endfor %}
         </table>
+        <a href="{{ url_for('homepage') }}">
+            <button>Home</button>
+        </a>
     </div>
 </body>
 </html>

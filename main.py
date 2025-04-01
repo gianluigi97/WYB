@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_file
 import sqlite3
 import pandas as pd
 
@@ -68,6 +68,13 @@ def show_rankings():
     return render_template('ranking.html', nomi=nome, totale=dati_accoppiati)
 
 
+@app.route('/manifest.json')
+def serve_manifest():
+    return send_file('manifest.json', mimetype='application/manifest+json')
+
+@app.route('/sw.js')
+def serve_sw():
+    return send_file('sw.js', mimetype='application/javascript')
 
 if __name__ == "__main__":
     app.run(debug=True)

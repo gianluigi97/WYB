@@ -77,5 +77,5 @@ def serve_sw():
     return send_file('sw.js', mimetype='application/javascript')
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="192.168.1.15", port="5000", debug=True)
 

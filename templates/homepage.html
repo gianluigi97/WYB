@@ -6,17 +6,7 @@
         <title>HomePage</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <link rel="manifest" href="/manifest.json">
-        <script>
-            if ('serviceWorker' in navigator) {
-              window.addEventListener('load', function() {
-                navigator.serviceWorker.register("/sw.js").then(function(registration) {
-                  console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                }, function(err) {
-                  console.log('ServiceWorker registration failed: ', err);
-                });
-              });
-            }
-          </script>
+        
     </head>
 <body>
     <div class="main">  
@@ -41,55 +31,16 @@
             </a>
         </div>
     </div>
-    <!-- <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const totaleElement = document.getElementById("totale");
-            let currentValue = parseInt(totaleElement.dataset.value, 10);
-        
-            // Salviamo il valore iniziale nel localStorage solo se non esiste già
-            if (!localStorage.getItem("totaleValue")) {
-                localStorage.setItem("totaleValue", currentValue);
-            }
-        
-            // Intercettiamo l'invio del modulo
-            document.querySelector("form").addEventListener("submit", function (event) {
-                event.preventDefault(); // Evitiamo il refresh della pagina
-                
-                const formData = new FormData(event.target);
-                const litri = parseFloat(formData.get("quantity")) || 0; // Prendiamo i litri inseriti
-                const newValue = currentValue - litri; // Calcoliamo il nuovo totale
-                
-                animateTotal(currentValue, newValue);
-                
-                // Aggiorniamo il valore corrente
-                currentValue = newValue;
-                localStorage.setItem("totaleValue", newValue);
-        
-                // Inviamo il modulo manualmente dopo l'animazione
-                setTimeout(() => event.target.submit(), 1600);
+    <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+            navigator.serviceWorker.register("/sw.js").then(function(registration) {
+              console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, function(err) {
+              console.log('ServiceWorker registration failed: ', err);
             });
-        
-            function animateTotal(start, end) {
-                const duration = 1500;
-                const startTime = performance.now();
-        
-                function updateNumber(currentTime) {
-                    const elapsedTime = currentTime - startTime;
-                    const progress = Math.min(elapsedTime / duration, 1);
-                    const animatedValue = Math.floor(start + (end - start) * progress);
-        
-                    totaleElement.textContent = animatedValue;
-        
-                    if (progress < 1) {
-                        requestAnimationFrame(updateNumber);
-                    } else {
-                        totaleElement.textContent = end; // Assicura il valore finale
-                    }
-                }
-        
-                requestAnimationFrame(updateNumber);
-            }
-        });
-        </script> -->
+          });
+        }
+      </script>
 </body>
 </html>

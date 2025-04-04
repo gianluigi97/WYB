@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, send_file
 import sqlite3
 import pandas as pd
+import os 
 
 app = Flask(__name__)
+
 
 class Database:
     dbname = "utenti_db"
@@ -11,6 +13,7 @@ class Database:
     def connection(cls):
         return sqlite3.connect(cls.dbname)
 
+    
     @classmethod
     def addRecord(cls, nome, litri):
         conn = cls.connection()
@@ -23,6 +26,20 @@ class Database:
             print("Errore di integrità:", e)
         finally:
             conn.close()  
+
+    @classmethod
+    def resetRecords(cls, adminPassword):
+        conn=cls.connection()
+        cur = conn.cursor()
+
+        if adminPassword == "031097":
+            cur.execute("DELETE * FROM records")
+            print("records reset")
+
+        else: print("Admin password incorrect")
+
+        conn.close()
+
 
 @app.route("/", methods=["GET", "POST"])
 def homepage():
@@ -76,6 +93,11 @@ def serve_manifest():
 def serve_sw():
     return send_file('sw.js', mimetype='application/javascript')
 
+#if __name__ == "__main__":
+    #app.run(host="192.168.1.15", port="5000", debug=True)
+    #app.run(debug=True)
+
 if __name__ == "__main__":
-    app.run(host="192.168.1.15", port="5000", debug=True)
+    port = int(os.getenv("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
 

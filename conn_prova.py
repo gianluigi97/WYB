@@ -6,21 +6,21 @@ class Database:
 
     load_dotenv()
 
-    USER = os.getenv("DB_USER")
-    PASSWORD = os.getenv("DB_PASSWORD")
-    HOST = os.getenv("DB_HOST")
-    PORT = os.getenv("DB_PORT")
-    DBNAME = os.getenv("DB_NAME")
+    DB_USER = os.getenv("DB_USER")
+    DB_PASSWORD = os.getenv("DB_PASSWORD")
+    DB_HOST = os.getenv("DB_HOST")
+    DB_PORT = os.getenv("DB_PORT")
+    DB_NAME = os.getenv("DB_NAME")
 
     @classmethod
     def connection(cls):
         try:
             conn = psycopg2.connect(
-                user=cls.USER,
-                password=cls.PASSWORD,
-                host=cls.HOST,
-                port=cls.PORT,
-                dbname=cls.DBNAME
+                user=cls.DB_USER,
+                password=cls.DB_PASSWORD,
+                host=cls.DB_HOST,
+                port=cls.DB_PORT,
+                dbname=cls.DB_NAME
             )
             return conn
         except Exception as e:

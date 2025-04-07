@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, send_file
 import sqlite3
 import pandas as pd
 import os 
-from conn_prova import Database
+from connectionDB import Database
 
 app = Flask(__name__)
 
@@ -49,6 +49,20 @@ def show_rankings():
     return render_template('ranking.html', nomi=nome, totale=dati_accoppiati)
 
 
+
+@app.route("/storico", methods=["GET"])
+def show_history():
+    conn = Database.connection()
+    cur = conn.cursor()
+    cur.execute("SELECT nome, quantity, date FROM records ORDER BY date desc")
+
+    history = pd.DataFrame(data=cur.fetchall())
+    history = history.to_dict('history.html', history=history)
+
+    return render_template()
+
+
+
 @app.route('/manifest.json')
 def serve_manifest():
     return send_file('manifest.json', mimetype='application/manifest+json')
@@ -62,7 +76,7 @@ def serve_sw():
     #app.run(debug=True)
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
-    # app.run()
+    #port = int(os.getenv("PORT", 5000))
+    #app.run(host="0.0.0.0", port=port)
+    app.run(debug=True)
 

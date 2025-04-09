@@ -25,7 +25,7 @@ class Database:
             return conn
         except Exception as e:
             print(f"Failed to connect: {e}")
-            return None  # Restituisci None se la connessione fallisce
+            return None  
 
     @classmethod
     def addRecord(cls, nome, litri):
@@ -33,7 +33,7 @@ class Database:
         
         if conn is None:
             print("Connessione al database fallita.")
-            return  # Interrompe l'esecuzione se la connessione fallisce
+            return  
 
         cur = conn.cursor()
 
@@ -44,6 +44,25 @@ class Database:
             print("Errore:", e)
         finally:
             conn.close()
+
+    @classmethod
+    def deleteRecord(cls, record_id):
+        conn = cls.connection()
+        
+        if conn is None:
+            print("Connessione al database fallita.")
+            return  
+        
+        cur = conn.cursor()
+
+        try: 
+            cur.execute("""DELETE FROM records WHERE id_rec = %s""", (record_id,))
+            conn.commit()
+        except Exception as e:
+            print("Errore:", e)
+        finally:
+            conn.close()
+
 
 
 # if __name__ == "__main__": 

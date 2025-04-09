@@ -54,13 +54,22 @@ def show_rankings():
 def show_history():
     conn = Database.connection()
     cur = conn.cursor()
-    cur.execute("SELECT nome, quantity, date FROM records ORDER BY date desc")
+    cur.execute("SELECT * FROM records ORDER BY date desc")
 
     history = pd.DataFrame(data=cur.fetchall())
-    history = history.to_dict('history.html', history=history)
+    history.columns = ["id", "nome", "qty", "time"]
+    history['time'] = [row.strftime("%Y-%m-%d %H:%M:%S") for row in history['time']]
+    history = history.to_dict(orient="records")
 
-    return render_template()
+    return render_template('history.html', history=history)
 
+
+@app.route("/storico/<int:record_id>")
+def delete_record(record_id):
+
+    Database.deleteRecord(record_id=record_id)
+
+    return redirect(url_for("show_history"))  
 
 
 @app.route('/manifest.json')
@@ -71,12 +80,9 @@ def serve_manifest():
 def serve_sw():
     return send_file('sw.js', mimetype='application/javascript')
 
-#if __name__ == "__main__":
-    #app.run(host="192.168.1.15", port="5000", debug=True)
-    #app.run(debug=True)
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
-    # app.run(debug=True)
+    # port = int(os.getenv("PORT", 5000))
+    # app.run(host="0.0.0.0", port=port)
+    app.run(debug=True)
 

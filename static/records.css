@@ -1,0 +1,148 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Jost', sans-serif;
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    min-height: 100vh;
+    color: white;
+}
+
+#main {
+    width: 90%;
+    max-width: 900px;
+    background-color: rgba(134, 107, 107, 0.05);
+    border-radius: 10px;
+    padding: 20px;
+    max-height: 70vh;
+    overflow-y: auto;
+    overflow-x: auto;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    margin-top: 40px;
+    padding-bottom: 60px; /* Spazio per il tasto home sempre visibile */
+}
+
+#history {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#history tr {
+    display: flex;
+    margin-bottom: 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    justify-content: space-between;
+    align-items: center;
+}
+
+#history td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 0.9em;
+    position: relative;
+    flex-grow: 1;
+}
+
+#history td .content {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    flex-grow: 1; /* Consente ai dati di occupare tutto lo spazio disponibile */
+}
+
+#history td .top-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+#history td .top-row span {
+    margin-right: 20px; /* Spaziatura tra Nome e Quantità */
+}
+
+#history td .top-row .quantity {
+    font-size: 1.5em;  /* Quantità più piccola */
+    color: #ddd; /* Colore chiaro */
+}
+
+#history td .top-row .name {
+    font-size: 1.7em;  /* Nome più grande */
+    font-weight: bold;
+    color: white; /* Colore del nome */
+}
+
+#history td .date-container {
+    text-align: left;  /* Data allineata a sinistra */
+    margin-top: 5px;
+    color: #ddd;
+}
+
+#history td .delete-container {
+    margin-left: 14px; /* Distanza tra i dati e il tasto delete */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#history td .delete-container a {
+    color: #ddd;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+#homeButton {
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #dfee13;
+}
+
+/* Responsive tweaks per mobile */
+@media (max-width: 768px) {
+    #history td .content {
+        margin-right: 10px;
+    }
+
+    #history td .delete-container {
+        margin-left: 10px;
+        text-align: center;
+    }
+
+    #history td .date-container {
+        text-align: left;
+        margin-top: 10px;
+        color: #ddd;
+    }
+
+    #homeButton {
+        position: fixed;
+        bottom: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+}

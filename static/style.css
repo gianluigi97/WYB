@@ -6,12 +6,12 @@ body {
     align-items: center;
     min-height: 100vh;
     font-family: 'Jost', sans-serif;
-    background: linear-gradient(to bottom, #02000c, #302b63, #24243e);
+    background: linear-gradient(to bottom, #1f1550, #302b63, #24243e);
 }
 
 .main {
     width: 400px;
-    height: 550px;
+    height: 700px;
     background: red;
     overflow: hidden;
     background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover;
@@ -25,7 +25,7 @@ label {
     font-size: 1.2em; /* Ridotto per essere più piccolo */
     justify-content: center;
     display: flex;
-    margin: 25px auto;
+    margin: 20px auto;
     font-weight: bold;
     cursor: pointer;
     transition: .5s ease-in-out;
@@ -54,13 +54,13 @@ input, select, option {
     border-radius: 5px;
     text-align: center;
     font-size: 0.9em; /* Ridotto per input e select */
-    margin-top: 5px;
+    margin-top: 3px;
 }
 
 .buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 25px;
 }
 
 button {

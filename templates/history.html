@@ -4,12 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Storico</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Jost', sans-serif;
+            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+        }
+        
+        #main {
+            width: 50%; 
+        }
+
+        #history {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            color: white;
+        }
+
+        #history td, #history th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        #history tr:first-child(){background-color: #7c7a97; color: red}
+
+        #history tr:nth-child(even){background-color: #7c7a97; color: black}
+
+        #history tr:hover {background-color: #e4ec7d86; color: black;}
+
+        #history th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #24243e;
+            color: white;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            width: 40%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #fff;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #dfee13;
+        }
+    </style>
 </head>
 <body>
     <div id="main">
         <table id="history">
             <tr>
-                <th>id</th>
                 <th>Nome</th>
                 <th>Quantita</th>
                 <th>Data</th>
@@ -17,11 +80,10 @@
             </tr>
             {% for row in history %}
                 <tr>
-                    <td>{{ row.id }}</td>
                     <td>{{ row.nome }}</td>
                     <td>{{ row.qty }}</td>
                     <td>{{ row.time }}</td>
-                    <td><a href="{{ url_for('delete_record', record_id=row.id) }}" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a></td>
+                    <td id="delete_button"><a style="color: rgb(197, 193, 193); font-weight: 300" href="{{ url_for('delete_record', record_id=row.id) }}" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a></td>
                 </tr>
             {% endfor %}
         </table>

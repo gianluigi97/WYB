@@ -58,15 +58,18 @@ def show_history():
 
     history = pd.DataFrame(data=cur.fetchall())
     history.columns = ["id", "nome", "qty", "time"]
+    history['time'] = [row.strftime("%Y-%m-%d %H:%M:%S") for row in history['time']]
     history = history.to_dict(orient="records")
 
     return render_template('history.html', history=history)
 
 
-
 @app.route("/storico/<int:record_id>")
 def delete_record(record_id):
-    return
+
+    Database.deleteRecord(record_id=record_id)
+
+    return redirect(url_for("show_history"))  
 
 
 @app.route('/manifest.json')

@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='records.css') }}">
 </head>
 <body>
+    <div class="menu">
+        <a href="{{ url_for('homepage') }}">Home</a>
+        <a href="{{ url_for('show_rankings') }}">Ranking</a>
+        <a href="{{ url_for('show_history') }}">History</a>
+        <a href="#">about</a>
+      </div>
     <div id="main">
         <table id="history">
             {% for row in history %}
@@ -31,11 +37,6 @@
             </tr>
             {% endfor %}
         </table>
-    </div>
-    <div id="homeButton">
-        <a href="{{ url_for('homepage') }}">
-            <button>Home</button>
-        </a>
     </div>
 </body>
 </html>

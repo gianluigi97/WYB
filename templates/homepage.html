@@ -9,7 +9,17 @@
         
     </head>
 <body>
+<div class="menu">
+          <div class="menu">
+            <a href="{{ url_for('homepage') }}">Home</a>
+            <a href="{{ url_for('show_rankings') }}">Ranking</a>
+            <a href="{{ url_for('show_history') }}">History</a>
+            <a href="#">about</a>
+          </div>
+         
+          </div>
     <div class="main">  
+        
         <div class="data">
             <p class="totale" id="totale" data-value="{{ totale }}">{{ totale }}</p>
             <form method="post">
@@ -26,12 +36,6 @@
                     <button type="submit">Submit</button>
                 </div>
             </form>
-            <a href="{{ url_for('show_rankings') }}">
-                <button>Ranking</button>
-            </a><br>
-            <a href="{{ url_for('show_history') }}">
-              <button>History</button>
-          </a>
         </div>
     </div>
     <script>

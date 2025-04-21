@@ -51,10 +51,13 @@ def show_rankings():
 
 
 @app.route("/storico", methods=["GET"])
-def show_history():
+@app.route("/storico/<string:nome>", methods=["GET"])
+def show_history(nome=None):
     conn = Database.connection()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM records ORDER BY date desc")
+    if nome: 
+        cur.execute("SELECT * FROM records WHERE nome = %s ORDER BY date desc", (nome,))
+    else: cur.execute("SELECT * FROM records ORDER BY date desc")
 
     history = pd.DataFrame(data=cur.fetchall())
     history.columns = ["id", "nome", "qty", "time"]
@@ -84,7 +87,6 @@ def serve_sw():
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-    
 
 
 

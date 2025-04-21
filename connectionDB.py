@@ -65,7 +65,7 @@ class Database:
 
 
 
-# if __name__ == "__main__": 
+if __name__ == "__main__": 
 
-#     Database.connection()
-#     Database.addRecord('gian', '2')
+    Database.connection()
+    

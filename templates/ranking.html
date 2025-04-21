@@ -125,7 +125,9 @@
             </tr>
             {% for nome, tot in totale %}
                 <tr>
-                    <td>{{ nome }}</td>
+                    <td>
+                        <a href="{{ url_for('show_history', nome=nome) }}" style="color: white; text-decoration: none;">{{ nome }}</a>
+                    </td>
                     <td>{{ tot }}</td>
                 </tr>
             {% endfor %}

@@ -1,137 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classifica</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Jost', sans-serif;
-            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
-        }
-        .menu {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 60px;
-        background: rgba(15, 10, 40, 0.9);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
+{% extends 'base.html' %}
 
-        /* Stile dei link nel menu */
-        .menu a {
-            color: #fff;
-            background: rgba(15, 10, 40, 0.9);
-            text-decoration: none;
-            padding: 0 20px;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-            font-size: 1em;
-            transition: background 0.3s;
-            border-right: 1px solid rgba(255, 255, 255, 0.1); /* linea sottile tra i link */
-        }
+{% block head %}
 
-        /* Rimuove la linea dopo l'ultimo */
-        .menu a:last-child {
-            border-right: none;
-        }
+<title>Classifica</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='ranking.css') }}">
 
-        /* Hover e click */
-        .menu a:hover,
-        .menu a:active {
-            background: rgba(10, 5, 30, 1); /* più scuro */
-        }
-        #main {
-            width: 50%; 
-        }
+{% endblock %}
 
-        #records {
-            font-family: Arial, Helvetica, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-            color: white;
-        }
+{% block body %}
 
-        #records td, #records th {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        #records tr:first-child(){background-color: #7c7a97; color: red}
-
-        #records tr:nth-child(even){background-color: #7c7a97; color: black}
-
-        #records tr:hover {background-color: #e4ec7d; color: black;}
-
-        #records th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: left;
-            background-color: #24243e;
-            color: white;
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        button {
-            width: 40%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background: #fff;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 20px;
-        }
-
-        button:hover {
-            background: #dfee13;
-        }
-    </style>
-</head>
-<body>
+<div class="menu">
     <div class="menu">
-        <div class="menu">
-          <a href="{{ url_for('homepage') }}">Home</a>
-          <a href="{{ url_for('show_rankings') }}">Ranking</a>
-          <a href="{{ url_for('show_history') }}">History</a>
-          <a href="#">about</a>
-        </div>
-       
-        </div>
-    <div id="main">
-        <table id="records">
-            <tr>
-                <th>Nome</th>
-                <th>Totale</th>
-            </tr>
-            {% for nome, tot in totale %}
-                <tr>
-                    <td>
-                        <a href="{{ url_for('show_history', nome=nome) }}" style="color: white; text-decoration: none;">{{ nome }}</a>
-                    </td>
-                    <td>{{ tot }}</td>
-                </tr>
-            {% endfor %}
-        </table>
+      <a href="{{ url_for('homepage') }}">Home</a>
+      <a href="{{ url_for('show_rankings') }}">Ranking</a>
+      <a href="{{ url_for('show_history') }}">History</a>
+      <a href="#">about</a>
     </div>
-</body>
-</html>
+   
+    </div>
+<div id="main">
+    <table id="records">
+        <tr>
+            <th>Nome</th>
+            <th>Totale</th>
+        </tr>
+        {% for nome, tot in totale %}
+            <tr>
+                <td>
+                    <a href="{{ url_for('show_history', nome=nome) }}" style="color: white; text-decoration: none;">{{ nome }}</a>
+                </td>
+                <td>{{ tot }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}
+

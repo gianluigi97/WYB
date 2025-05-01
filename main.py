@@ -3,10 +3,6 @@ import sqlite3
 import pandas as pd
 import os 
 from connectionDB import Database
-from dotenv import load_dotenv
-import requests
-
-load_dotenv()
 
 app = Flask(__name__)
 
@@ -91,27 +87,6 @@ def delete_record(record_id):
     Database.deleteRecord(record_id=record_id)
 
     return redirect(url_for("show_history"))  
-
-
-# @app.route("/info", methods=["GET"])
-# def get_info():
-
-#     conn = Database.connection()
-#     cur = conn.cursor()
-#     start = 2025
-#     cur.execute("SELECT COALESCE(SUM(quantity), 0) FROM records")
-#     actual = cur.fetchone()
-#     totale = round(start - actual[0], 0)
-    
-#     api_url = 'https://api.api-ninjas.com/v1/historicalevents?year={}'.format(totale)
-#     response = requests.get(api_url, headers={'X-Api-Key': 'YOUR_API_KEY'})
-#     if response.status_code == requests.codes.ok:
-#         print(response.text)
-#     else:
-#         print("Error:", response.status_code, response.text)
-
-
-
 
 
 @app.route('/manifest.json')

@@ -3,6 +3,10 @@ import sqlite3
 import pandas as pd
 import os 
 from connectionDB import Database
+from dotenv import load_dotenv
+import requests
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -49,6 +53,20 @@ def show_rankings():
     return render_template('ranking.html', nomi=nome, totale=dati_accoppiati)
 
 
+@app.route("/playerofthemonth", methods=["GET"])
+def show_month_rankings():
+    conn = Database.connection()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM playerofthemonth ORDER BY mese ASC")
+
+    monthranking = pd.DataFrame(data=cur.fetchall())
+    monthranking.columns = ['mese', 'nome', 'quantity']
+    monthranking = monthranking.to_dict(orient="records")
+
+    return render_template('monthranking.html', monthranking=monthranking)
+
+
+
 
 @app.route("/storico", methods=["GET"])
 @app.route("/storico/<string:nome>", methods=["GET"])
@@ -75,6 +93,27 @@ def delete_record(record_id):
     return redirect(url_for("show_history"))  
 
 
+# @app.route("/info", methods=["GET"])
+# def get_info():
+
+#     conn = Database.connection()
+#     cur = conn.cursor()
+#     start = 2025
+#     cur.execute("SELECT COALESCE(SUM(quantity), 0) FROM records")
+#     actual = cur.fetchone()
+#     totale = round(start - actual[0], 0)
+    
+#     api_url = 'https://api.api-ninjas.com/v1/historicalevents?year={}'.format(totale)
+#     response = requests.get(api_url, headers={'X-Api-Key': 'YOUR_API_KEY'})
+#     if response.status_code == requests.codes.ok:
+#         print(response.text)
+#     else:
+#         print("Error:", response.status_code, response.text)
+
+
+
+
+
 @app.route('/manifest.json')
 def serve_manifest():
     return send_file('manifest.json', mimetype='application/manifest+json')
@@ -87,6 +126,7 @@ def serve_sw():
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+    # app.run(debug=True)
 
 
 

@@ -148,23 +148,24 @@
         <div class="table-container">
             <table id="records">
                 <tr>
+                    <th>Mese</th>
                     <th>Nome</th>
                     <th>Totale</th>
                 </tr>
-                {% for nome, tot in totale %}
+                {% for row in monthranking %}
                     <tr>
+                        <td>{{ row.mese }}</td>
                         <td>
-                            <a href="{{ url_for('show_history', nome=nome) }}" style="color: white; text-decoration: none;">{{ nome }}</a>
+                            <a href="{{ url_for('show_history', nome=nome) }}" style="color: white; text-decoration: none;">{{ row.nome }}</a>
                         </td>
-                        <td>{{ tot }}</td>
+                        <td>{{ row.quantity }}</td>
                     </tr>
                 {% endfor %}
             </table>
-            
-        </div>       
-        <a href="{{ url_for('show_month_rankings') }}">
-            <button type="button">POTM</button>
-        </a>
+            <a href="{{ url_for('show_rankings') }}">
+                <button type="button">overall ranking</button>
+            </a>
+        </div>        
     </div>
 </body>
 </html>

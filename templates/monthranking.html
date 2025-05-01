@@ -155,9 +155,7 @@
                 {% for row in monthranking %}
                     <tr>
                         <td>{{ row.mese }}</td>
-                        <td>
-                            <a href="{{ url_for('show_history', nome=nome) }}" style="color: white; text-decoration: none;">{{ row.nome }}</a>
-                        </td>
+                        <td> {{ row.nome }}</td>
                         <td>{{ row.quantity }}</td>
                     </tr>
                 {% endfor %}
